@@ -8,8 +8,48 @@
 import SwiftUI
 
 struct ShoppingListView: View {
+    @ObservedObject private var shoppingListModel = ShoppingListModel()
+    @State private var newItemTitle = ""
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack {
+            HStack {
+                TextField("Add new item", text: $newItemTitle)
+                Button(action: {
+                    let newItem = ShoppingList(title: newItemTitle, isCompleted: false)
+                    shoppingListModel.addItem(newItem)
+                    newItemTitle = ""
+                }) {
+                    Image(systemName: "plus.circle.fill")
+                }
+            }
+            .padding()
+            
+            List {
+                ForEach(shoppingListModel.shoppingList) { item in
+                    HStack {
+                        Button(action: {
+                            shoppingListModel.toggleItem(item)
+                        }) {
+                            Image(systemName: item.isCompleted ? "checkmark.circle.fill" : "circle")
+                        }
+                        .buttonStyle(BorderlessButtonStyle())
+                        
+                        Text(item.title)
+                            .strikethrough(item.isCompleted)
+                        
+                        Spacer()
+                        
+                        Button(action: {
+                            shoppingListModel.deleteItem(item)
+                        }) {
+                            Image(systemName: "trash")
+                        }
+                        .buttonStyle(BorderlessButtonStyle())
+                    }
+                }
+            }
+        }
     }
 }
 

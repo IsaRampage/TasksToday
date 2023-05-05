@@ -8,8 +8,42 @@
 import SwiftUI
 
 struct DailyTasksView: View {
+    @ObservedObject private var dailyTasksModel = DailyTasksModel()
+
+    @State private var newTaskTitle = ""
+
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack {
+            List {
+                ForEach(dailyTasksModel.dailyTasks.filter({ $0.shouldDisplay })) { task in
+                    HStack {
+                        Text(task.title)
+                        Spacer()
+                        if task.lastCompletedDate == nil {
+                            Button(action: {
+                                dailyTasksModel.completeTask(task)
+                            }) {
+                                Image(systemName: "checkmark")
+                            }
+                        }
+                    }
+                }
+                .onDelete { indexSet in
+                    dailyTasksModel.deleteTask(indexSet: indexSet)
+                }
+            }
+            HStack {
+                TextField("New Task", text: $newTaskTitle)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                Button(action: {
+                    dailyTasksModel.addTask(newTaskTitle)
+                    newTaskTitle = ""
+                }) {
+                    Image(systemName: "plus.circle.fill")
+                }
+            }
+            .padding()
+        }
     }
 }
 
