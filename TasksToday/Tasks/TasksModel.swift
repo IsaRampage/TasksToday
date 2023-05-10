@@ -9,6 +9,8 @@ import SwiftUI
 import CoreData
 import Foundation
 
+
+@MainActor
 class TasksModel: ObservableObject {
     let container: NSPersistentContainer
     
@@ -86,6 +88,7 @@ class TasksModel: ObservableObject {
     func addTask(_ title: String) {
         let newTask = Tasks(context: container.viewContext)
         newTask.title = title
+        newTask.isCompleted = false
         
         do {
             try container.viewContext.save()
@@ -94,4 +97,16 @@ class TasksModel: ObservableObject {
             print("Error while saving task. \(error.localizedDescription)")
         }
     }
+    
+    func deleteAllTasks() {
+        for task in tasks {
+          container.viewContext.delete(task)
+        }
+        do {
+          try container.viewContext.save()
+          fetchTasks()
+        } catch {
+          print("Error while deleting a task \(error)")
+        }
+      }
 }

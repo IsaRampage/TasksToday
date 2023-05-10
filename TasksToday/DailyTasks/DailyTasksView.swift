@@ -13,37 +13,37 @@ struct DailyTasksView: View {
     @State private var newTaskTitle = ""
 
     var body: some View {
-        VStack {
-            List {
-                ForEach(dailyTasksModel.dailyTasks.filter({ $0.shouldDisplay })) { task in
-                    HStack {
-                        Text(task.title)
-                        Spacer()
-                        if task.lastCompletedDate == nil {
-                            Button(action: {
-                                dailyTasksModel.completeTask(task)
-                            }) {
-                                Image(systemName: "checkmark")
+            VStack {
+                List {
+                    ForEach(dailyTasksModel.dailyTasks.filter({ $0.shouldDisplay })) { task in
+                        HStack {
+                            Text(task.title)
+                            Spacer()
+                            if task.lastCompletedDate == nil {
+                                Button(action: {
+                                    dailyTasksModel.completeTask(task)
+                                }) {
+                                    Image(systemName: "checkmark")
+                                }
                             }
                         }
                     }
+                    .onDelete { indexSet in
+                        dailyTasksModel.deleteTask(indexSet: indexSet)
+                    }
                 }
-                .onDelete { indexSet in
-                    dailyTasksModel.deleteTask(indexSet: indexSet)
+                HStack {
+                    TextField("New Task", text: $newTaskTitle)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                    Button(action: {
+                        dailyTasksModel.addTask(newTaskTitle)
+                        newTaskTitle = ""
+                    }) {
+                        Image(systemName: "plus.circle.fill")
+                    }
                 }
+                .padding()
             }
-            HStack {
-                TextField("New Task", text: $newTaskTitle)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                Button(action: {
-                    dailyTasksModel.addTask(newTaskTitle)
-                    newTaskTitle = ""
-                }) {
-                    Image(systemName: "plus.circle.fill")
-                }
-            }
-            .padding()
-        }
     }
 }
 

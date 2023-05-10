@@ -10,56 +10,57 @@ import CoreData
 
 struct TasksView: View {
     @State private var newTaskTitle = ""
-    @ObservedObject private var tasksModel = TasksModel()
-
+    @StateObject private var tasksModel = TasksModel()
+    
     var body: some View {
-        ZStack {
-            LinearGradient(gradient: Gradient(colors: [Color.white, Color.blue]), startPoint: .bottom, endPoint: .top)
-                .edgesIgnoringSafeArea(.all)
-                .zIndex(-1)
-
+        NavigationStack{
             VStack {
+                // Text("\(tasksModel.tasks.count)")
                 if tasksModel.tasks.isEmpty {
                     Spacer()
+                    
                 } else {
                     VStack {
                         List {
-                            ForEach(tasksModel.tasks, id: \.id) { task in
-                                if !task.isCompleted {
-                                    HStack {
-                                        Text(task.title ?? "")
-                                        Spacer()
-                                        Button(action: {
-                                            tasksModel.markAsCompleted(task)
-                                        }) {
-                                            Image(systemName: "checkmark")
+                            Section {
+                                ForEach(tasksModel.tasks, id: \.id) { task in
+                                    if !task.isCompleted {
+                                        HStack {
+                                            Text(task.title ?? "")
+                                            Spacer()
+                                            Button(action: {
+                                                tasksModel.updateTask(task: task)
+                                            }) {
+                                                Image(systemName: "checkmark")
+                                            }
                                         }
+                                        
                                     }
+                                    
+                                }
+                                .onDelete { indexSet in
+                                    tasksModel.deleteTask(indexSet: indexSet)
                                 }
                             }
-                            .onDelete { indexSet in
-                                tasksModel.deleteTask(indexSet: indexSet)
-                            }
+                            
                         }
-                        .listStyle(.plain)
-                        .background(Color.white)
-                        .cornerRadius(10)
-                        .padding()
                     }
                 }
-
+                
                 HStack {
                     TextField("New Task", text: $newTaskTitle)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
                     Button(action: {
                         tasksModel.addTask(newTaskTitle)
                         newTaskTitle = ""
+                        
                     }) {
                         Image(systemName: "plus.circle.fill")
                     }
                 }
                 .padding()
             }
+            .navigationTitle("Tasks")
         }
     }
 }

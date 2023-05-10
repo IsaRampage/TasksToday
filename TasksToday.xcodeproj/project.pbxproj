@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9F4BCBF92A0A6E5F003BA043 /* RoundedShapeHead.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F4BCBF82A0A6E5F003BA043 /* RoundedShapeHead.swift */; };
 		9F9816BF2A053BE800B1408B /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F9816BE2A053BE800B1408B /* ProfileView.swift */; };
 		9F9816C32A0543C800B1408B /* TasksDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9F9816C12A0543C800B1408B /* TasksDataModel.xcdatamodeld */; };
 		9F9816C62A05458100B1408B /* SplashScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F9816C52A05458100B1408B /* SplashScreenView.swift */; };
@@ -28,6 +29,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9F4BCBF82A0A6E5F003BA043 /* RoundedShapeHead.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedShapeHead.swift; sourceTree = "<group>"; };
 		9F9816BE2A053BE800B1408B /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		9F9816C22A0543C800B1408B /* TasksDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TasksDataModel.xcdatamodel; sourceTree = "<group>"; };
 		9F9816C52A05458100B1408B /* SplashScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenView.swift; sourceTree = "<group>"; };
@@ -60,6 +62,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9F4BCBF72A0A6E33003BA043 /* RoundedShape */ = {
+			isa = PBXGroup;
+			children = (
+				9F4BCBF82A0A6E5F003BA043 /* RoundedShapeHead.swift */,
+			);
+			path = RoundedShape;
+			sourceTree = "<group>";
+		};
 		9F9816C02A05439900B1408B /* DataModel */ = {
 			isa = PBXGroup;
 			children = (
@@ -95,6 +105,7 @@
 		9FEA713F2A013EF200455E6D /* TasksToday */ = {
 			isa = PBXGroup;
 			children = (
+				9F4BCBF72A0A6E33003BA043 /* RoundedShape */,
 				9F9816C42A05455900B1408B /* SplashScreen */,
 				9F9816C02A05439900B1408B /* DataModel */,
 				9FEA716B2A01510700455E6D /* Tasks */,
@@ -240,6 +251,7 @@
 				9FEA715F2A0144EA00455E6D /* ShoppingList.swift in Sources */,
 				9FEA71572A01442A00455E6D /* TasksModel.swift in Sources */,
 				9FEA71682A0145C400455E6D /* CustomTabBar.swift in Sources */,
+				9F4BCBF92A0A6E5F003BA043 /* RoundedShapeHead.swift in Sources */,
 				9FEA71592A0144A900455E6D /* DailyTasks.swift in Sources */,
 				9FEA716A2A0145D600455E6D /* TabCurve.swift in Sources */,
 				9F9816C62A05458100B1408B /* SplashScreenView.swift in Sources */,

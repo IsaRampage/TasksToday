@@ -31,14 +31,14 @@ struct CustomTabBar: View {
             )
         }
         .padding()
-        .background(Color.white
+        .background(Color.blue
             .clipShape(TabCurve(tabPoint: getCurvePoint() - 15))
         )
         .overlay(
         Circle()
-            .fill(Color.white)
+            .fill(Color.blue)
             .frame(width: 10, height: 10)
-            .offset(x: getCurvePoint() - 20)
+            .offset(x: getCurvePoint() - 195)
         
             ,alignment: .bottom
         )
@@ -111,7 +111,7 @@ struct TabBarButton: View {
                 
                 Image(systemName: image)
                     .font(.system(size: 25, weight: .semibold))
-                    .foregroundColor(Color(.gray))
+                    .foregroundColor(Color(.black))
                 // Lifting View
                 // if its selected
                     .offset(y: selectedTab == image ? -10 : 0)
