@@ -14,7 +14,9 @@ struct ShoppingListView: View {
     var body: some View {
             VStack {
                 HStack {
+                    
                     TextField("Add new item", text: $newItemTitle)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
                     Button(action: {
                         let newItem = ShoppingList(title: newItemTitle, isCompleted: false)
                         shoppingListModel.addItem(newItem)
@@ -23,33 +25,41 @@ struct ShoppingListView: View {
                         Image(systemName: "plus.circle.fill")
                     }
                 }
-                .padding()
+                .padding(.horizontal, 25)
+                .padding(.bottom)
+                .padding(.top)
                 
                 List {
-                    ForEach(shoppingListModel.shoppingList) { item in
-                        HStack {
-                            Button(action: {
-                                shoppingListModel.toggleItem(item)
-                            }) {
-                                Image(systemName: item.isCompleted ? "checkmark.circle.fill" : "circle")
+                    Section {
+                        ForEach(shoppingListModel.shoppingList) { item in
+                            HStack {
+                                Button(action: {
+                                    shoppingListModel.toggleItem(item)
+                                }) {
+                                    Image(systemName: item.isCompleted ? "checkmark.circle.fill" : "circle")
+                                }
+                                .buttonStyle(BorderlessButtonStyle())
+                                
+                                Text(item.title)
+                                    .strikethrough(item.isCompleted)
+                                
+                                Spacer()
+                                
+                                Button(action: {
+                                    shoppingListModel.deleteItem(item)
+                                }) {
+                                    Image(systemName: "trash")
+                                }
+                                .buttonStyle(BorderlessButtonStyle())
                             }
-                            .buttonStyle(BorderlessButtonStyle())
-                            
-                            Text(item.title)
-                                .strikethrough(item.isCompleted)
-                            
-                            Spacer()
-                            
-                            Button(action: {
-                                shoppingListModel.deleteItem(item)
-                            }) {
-                                Image(systemName: "trash")
-                            }
-                            .buttonStyle(BorderlessButtonStyle())
                         }
                     }
+                    .listRowBackground(TasksListRowBackground())
                 }
+                .frame(width: 350)
+                .listStyle(PlainListStyle())
             }
+            .padding(.bottom, -25)
     }
 }
 

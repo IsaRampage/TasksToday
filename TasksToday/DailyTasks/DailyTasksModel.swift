@@ -6,18 +6,43 @@
 //
 
 import Foundation
+import CoreData
 
 class DailyTasksModel: ObservableObject {
-    @Published var dailyTasks: [DailyTasks] = [
-        DailyTasks(title: "Drink water", lastCompletedDate: Date())
-    ]
+    let container: NSPersistentContainer
+    
+    @Published var dailyTasks: [Tasks] = []
 
     init() {
-        resetCompletedTasksIfNeeded()
+        container = NSPersistentContainer(name: "TasksDataModel")
+        
+        container.loadPersistentStores { description, error in
+            if let error = error {
+                fatalError("core data store failed: \(error.localizedDescription)")
+            }
+        }
+        
+        fetchTasks()
+    }
+    
+    func fetchTasks() {
+        let request = NSFetchRequest<Tasks>(entityName: "Tasks")
+        
+        do {
+           dailyTasks = try container.viewContext.fetch(request)
+        } catch {
+            print("error fetching: \(error)")
+        }
+    }
+    
+    //init() {
+      //  resetCompletedTasksIfNeeded()
     }
 
+
+
     func addTask(_ title: String) {
-        let newTask = DailyTasks(title: title)
+        let newTask = Tasks(context: container.viewContext)
         dailyTasks.append(newTask)
     }
 

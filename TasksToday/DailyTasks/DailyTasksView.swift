@@ -6,32 +6,15 @@
 //
 
 import SwiftUI
+import CoreData
 
 struct DailyTasksView: View {
-    @ObservedObject private var dailyTasksModel = DailyTasksModel()
+    @StateObject private var dailyTasksModel = DailyTasksModel()
 
     @State private var newTaskTitle = ""
 
     var body: some View {
             VStack {
-                List {
-                    ForEach(dailyTasksModel.dailyTasks.filter({ $0.shouldDisplay })) { task in
-                        HStack {
-                            Text(task.title)
-                            Spacer()
-                            if task.lastCompletedDate == nil {
-                                Button(action: {
-                                    dailyTasksModel.completeTask(task)
-                                }) {
-                                    Image(systemName: "checkmark")
-                                }
-                            }
-                        }
-                    }
-                    .onDelete { indexSet in
-                        dailyTasksModel.deleteTask(indexSet: indexSet)
-                    }
-                }
                 HStack {
                     TextField("New Task", text: $newTaskTitle)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
@@ -42,8 +25,35 @@ struct DailyTasksView: View {
                         Image(systemName: "plus.circle.fill")
                     }
                 }
-                .padding()
+                .padding(.horizontal, 25)
+                .padding(.bottom)
+                .padding(.top)
+                
+                List {
+                    Section {
+                        ForEach(dailyTasksModel.dailyTasks.filter({ $0.shouldDisplay })) { task in
+                            HStack {
+                                Text(task.title ?? "")
+                                Spacer()
+                                if task.lastCompletedDate == nil {
+                                    Button(action: {
+                                        dailyTasksModel.completeTask(task)
+                                    }) {
+                                        Image(systemName: "checkmark")
+                                    }
+                                }
+                            }
+                        }
+                        .onDelete { indexSet in
+                            $dailyTasksModel.deleteTask(indexSet: indexSet)
+                        }
+                    }
+                    .listRowBackground(TasksListRowBackground())
+                }
+                .frame(width: 350)
+                .listStyle(PlainListStyle())
             }
+            .padding(.bottom, -25)
     }
 }
 

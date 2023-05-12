@@ -13,8 +13,22 @@ struct TasksView: View {
     @StateObject private var tasksModel = TasksModel()
     
     var body: some View {
-        NavigationStack{
             VStack {
+                HStack {
+                    TextField("New Task", text: $newTaskTitle)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                    Button(action: {
+                        tasksModel.addTask(newTaskTitle)
+                        newTaskTitle = ""
+                        
+                    }) {
+                        Image(systemName: "plus.circle.fill")
+                    }
+                }
+                .padding(.horizontal, 25)
+                .padding(.bottom)
+                .padding(.top)
+                
                 // Text("\(tasksModel.tasks.count)")
                 if tasksModel.tasks.isEmpty {
                     Spacer()
@@ -34,34 +48,40 @@ struct TasksView: View {
                                                 Image(systemName: "checkmark")
                                             }
                                         }
-                                        
                                     }
-                                    
                                 }
                                 .onDelete { indexSet in
                                     tasksModel.deleteTask(indexSet: indexSet)
                                 }
                             }
+                            .listRowBackground(TasksListRowBackground())
                             
                         }
+                        .frame(width: 350)
+                        .listStyle(PlainListStyle())
                     }
+                    .padding(.bottom, -25)
+
                 }
                 
-                HStack {
-                    TextField("New Task", text: $newTaskTitle)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                    Button(action: {
-                        tasksModel.addTask(newTaskTitle)
-                        newTaskTitle = ""
-                        
-                    }) {
-                        Image(systemName: "plus.circle.fill")
-                    }
-                }
-                .padding()
+                
+//                HStack {
+//                    TextField("New Task", text: $newTaskTitle)
+//                        .textFieldStyle(RoundedBorderTextFieldStyle())
+//                    Button(action: {
+//                        tasksModel.addTask(newTaskTitle)
+//                        newTaskTitle = ""
+//                        
+//                    }) {
+//                        Image(systemName: "plus.circle.fill")
+//                    }
+//                }
+//                .padding(.horizontal, 25)
+//                .padding(.bottom, -20)
+                
             }
-            .navigationTitle("Tasks")
-        }
+           
+        
     }
 }
 
