@@ -39,7 +39,7 @@ struct DailyTasksView: View {
                                 Spacer()
                                 
                                 Button {dailyTasksModel.updateTask(task: dailyTask)} label: {
-                                    
+                                    Image(systemName: "checkmark")
                                 }
                             }
                             }

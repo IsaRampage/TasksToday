@@ -47,6 +47,20 @@ struct ProfileView: View {
                 .padding(.horizontal, 20)
                 
                 Spacer()
+                Button(action: {
+                                //<-- Code für Logout FireBase
+                            }) {
+                                Text("Logout")
+                                    .font(.headline)
+                                    .foregroundColor(.white)
+                                    .padding()
+                                    .frame(maxWidth: .infinity)
+                                    .background(Color.red)
+                                    .cornerRadius(10)
+                                    .padding(.horizontal, 30)
+                            }
+                            .padding(.bottom, 30)
+
             }
         .background(backgroundColor)
         .ignoresSafeArea(.all)
