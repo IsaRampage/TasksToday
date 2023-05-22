@@ -11,7 +11,7 @@ import CoreData
 class DailyTasksModel: ObservableObject {
     let container: NSPersistentContainer
     
-    @Published var dailyTasks: [Tasks] = []
+    @Published var dailyTasks: [DailyTasks] = []
 
     init() {
         container = NSPersistentContainer(name: "TasksDataModel")
@@ -26,7 +26,7 @@ class DailyTasksModel: ObservableObject {
     }
     
     func fetchTasks() {
-        let request = NSFetchRequest<Tasks>(entityName: "Tasks")
+        let request = NSFetchRequest<DailyTasks>(entityName: "DailyTasks")
         
         do {
            dailyTasks = try container.viewContext.fetch(request)
@@ -37,23 +37,66 @@ class DailyTasksModel: ObservableObject {
     
     //init() {
       //  resetCompletedTasksIfNeeded()
+   // }
+
+func saveTask(title: String) {
+    let newTask = Tasks(context: container.viewContext)
+    newTask.title = title
+    newTask.isCompleted = false
+    
+    do {
+        try container.viewContext.save()
+        fetchTasks()
+    } catch {
+        print("Error while saving a new task \(error)")
     }
-
-
-
-    func addTask(_ title: String) {
-        let newTask = Tasks(context: container.viewContext)
-        dailyTasks.append(newTask)
+}
+    
+    func updateTask(task: DailyTasks) {
+        task.isCompleted.toggle()
+        
+        do {
+            try container.viewContext.save()
+            fetchTasks()
+        } catch {
+            print("Error while updating a task \(error)")
+        }
     }
-
-    func completeTask(_ task: DailyTasks) {
+    
+    func deleteTask(indexSet: IndexSet) {
+        guard let index = indexSet.first else {
+            print("No index inside IndexSet")
+            return
+        }
+        
+        let taskToDelete = dailyTasks[index]
+        container.viewContext.delete(taskToDelete)
+        
+        do {
+            try container.viewContext.save()
+            fetchTasks()
+        } catch {
+            print("Error while deleting a task \(error)")
+        }
+    }
+    
+    func markAsCompleted(_ task: DailyTasks) {
         if let index = dailyTasks.firstIndex(where: { $0.id == task.id }) {
-            dailyTasks[index].completeTask()
+            dailyTasks[index].isCompleted = true
         }
     }
 
-    func deleteTask(indexSet: IndexSet) {
-        dailyTasks.remove(atOffsets: indexSet)
+    func addTask(_ title: String) {
+        let newTask = DailyTasks(context: container.viewContext)
+        newTask.title = title
+        newTask.isCompleted = false
+        
+        do {
+            try container.viewContext.save()
+            dailyTasks.append(newTask)
+        } catch let error {
+            print("Error while saving task. \(error.localizedDescription)")
+        }
     }
 
     private func resetCompletedTasksIfNeeded() {

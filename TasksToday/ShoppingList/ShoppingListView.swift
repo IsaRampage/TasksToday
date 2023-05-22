@@ -18,7 +18,7 @@ struct ShoppingListView: View {
                     TextField("Add new item", text: $newItemTitle)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
                     Button(action: {
-                        let newItem = ShoppingList(title: newItemTitle, isCompleted: false)
+                        let newItem = ShoppingList(title: newItemTitle, istCompleted: false)
                         shoppingListModel.addItem(newItem)
                         newItemTitle = ""
                     }) {
@@ -36,12 +36,12 @@ struct ShoppingListView: View {
                                 Button(action: {
                                     shoppingListModel.toggleItem(item)
                                 }) {
-                                    Image(systemName: item.isCompleted ? "checkmark.circle.fill" : "circle")
+                                    Image(systemName: item.istCompleted ? "checkmark.circle.fill" : "circle")
                                 }
                                 .buttonStyle(BorderlessButtonStyle())
                                 
                                 Text(item.title)
-                                    .strikethrough(item.isCompleted)
+                                    .strikethrough(item.istCompleted)
                                 
                                 Spacer()
                                 

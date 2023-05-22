@@ -9,9 +9,9 @@ import Foundation
 
 class ShoppingListModel: ObservableObject {
     @Published var shoppingList: [ShoppingList] = [
-        ShoppingList(title: "Apples", isCompleted: false),
-        ShoppingList(title: "Milk", isCompleted: true),
-        ShoppingList(title: "Bread", isCompleted: false)
+        ShoppingList(title: "Apples", istCompleted: false),
+        ShoppingList(title: "Milk", istCompleted: true),
+        ShoppingList(title: "Bread", istCompleted: false)
     ]
     
     func addItem(_ item: ShoppingList) {
@@ -20,7 +20,7 @@ class ShoppingListModel: ObservableObject {
     
     func toggleItem(_ item: ShoppingList) {
         if let index = shoppingList.firstIndex(where: { $0.id == item.id }) {
-            shoppingList[index].isCompleted.toggle()
+            shoppingList[index].istCompleted.toggle()
         }
     }
     

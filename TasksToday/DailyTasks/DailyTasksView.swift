@@ -10,7 +10,8 @@ import CoreData
 
 struct DailyTasksView: View {
     @StateObject private var dailyTasksModel = DailyTasksModel()
-
+    var newArray = ["2, 3, 4"]
+    
     @State private var newTaskTitle = ""
 
     var body: some View {
@@ -31,21 +32,20 @@ struct DailyTasksView: View {
                 
                 List {
                     Section {
-                        ForEach(dailyTasksModel.dailyTasks.filter({ $0.shouldDisplay })) { task in
+                        ForEach(dailyTasksModel.dailyTasks, id: \.id) { dailyTask in
+                            if !dailyTask.isCompleted {
                             HStack {
-                                Text(task.title ?? "")
+                                Text(dailyTask.title ?? "")
                                 Spacer()
-                                if task.lastCompletedDate == nil {
-                                    Button(action: {
-                                        dailyTasksModel.completeTask(task)
-                                    }) {
-                                        Image(systemName: "checkmark")
-                                    }
+                                
+                                Button {dailyTasksModel.updateTask(task: dailyTask)} label: {
+                                    
                                 }
+                            }
                             }
                         }
                         .onDelete { indexSet in
-                            $dailyTasksModel.deleteTask(indexSet: indexSet)
+                            dailyTasksModel.deleteTask(indexSet: indexSet)
                         }
                     }
                     .listRowBackground(TasksListRowBackground())
