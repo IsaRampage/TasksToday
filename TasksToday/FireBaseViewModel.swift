@@ -35,13 +35,20 @@ class FireBaseViewModel: ObservableObject{
           //Todo: statt navPath self ?? FirebaseViewModel
           (self ?? FireBaseViewModel()).loggedIn = true
         }else {
-          print (error?.localizedDescription)
+            strongSelf.showAlert(message: error?.localizedDescription ?? "Something is not correct. Please check the fields.")
         }
       }
     }else {
-      print ("Please check the fields.")
+        showAlert(message: "Please check the fields.")
     }
   }
+    
+  func showAlert(message: String) {
+      let alert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
+      alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+      UIApplication.shared.windows.first?.rootViewController?.present(alert, animated: true, completion: nil)
+  }
+    
   //
   func signUp(){
     if checkSignUpFields(){

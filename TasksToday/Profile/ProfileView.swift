@@ -10,6 +10,7 @@ import SwiftUI
 struct ProfileView: View {
     @State private var backgroundColor = Color.white
     @State private var foregroundColor = Color.black
+    @EnvironmentObject var firebaseViewModel: FireBaseViewModel
     
     var body: some View {
             VStack {
@@ -20,13 +21,13 @@ struct ProfileView: View {
                     .foregroundColor(foregroundColor)
                     .padding(.bottom, 20)
                 
-                Text("Benutzername")
+                Text(firebaseViewModel.email)
                     .font(.title)
                     .fontWeight(.bold)
                     .foregroundColor(foregroundColor)
                     .padding(.bottom, 20)
                 
-                Divider()
+                Spacer()
                 
                 VStack(alignment: .leading, spacing: 10) {
                     Text("Hintergrundfarbe")
@@ -47,8 +48,11 @@ struct ProfileView: View {
                 .padding(.horizontal, 20)
                 
                 Spacer()
+               // Spacer()
+                
                 Button(action: {
                                 //<-- Code für Logout FireBase
+                    firebaseViewModel.logout()
                             }) {
                                 Text("Logout")
                                     .font(.headline)
@@ -59,7 +63,7 @@ struct ProfileView: View {
                                     .cornerRadius(10)
                                     .padding(.horizontal, 30)
                             }
-                            .padding(.bottom, 30)
+                            .padding()
 
             }
         .background(backgroundColor)

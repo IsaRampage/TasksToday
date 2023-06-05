@@ -25,10 +25,6 @@ struct ContentView: View {
                             .fill(Color.blue)
                             .frame(width: 450, height: 180)
                             .offset(x: -90, y: -60) // Position des Shapes anpassen
-                        //                                   Text(screenTitle)
-                        //                                        .font(.largeTitle)
-                        //                                        .bold()
-                        //                                        .offset(x: -140, y: -20)
                     }
                     .padding(.bottom, -50)
                     

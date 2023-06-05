@@ -55,13 +55,13 @@ struct CustomTabBar: View {
         } else {
             switch selectedTab {
             case "list.bullet":
-                return tabPoints[0]
-            case "calendar":
-                return tabPoints[1]
-            case "cart":
-                return tabPoints[2]
-            default:
                 return tabPoints[3]
+            case "calendar":
+                return tabPoints[2]
+            case "cart":
+                return tabPoints[1]
+            default:
+                return tabPoints[0]
                 
             }
         }
