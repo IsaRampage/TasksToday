@@ -52,15 +52,16 @@ class ShoppingListModel: ObservableObject {
         
         do {
            shoppingList = try container.viewContext.fetch(request)
+            print(shoppingList)
         } catch {
             print("error fetching: \(error)")
         }
     }
 
 func saveItem(title: String) {
-    let newTask = Tasks(context: container.viewContext)
-    newTask.title = title
-    newTask.isCompleted = false
+    let newItem = ShoppingList(context: container.viewContext)
+    newItem.title = title
+    newItem.isItCompleted = false
     
     do {
         try container.viewContext.save()
@@ -81,14 +82,9 @@ func saveItem(title: String) {
         }
     }
     
-    func deleteItem(indexSet: IndexSet) {
-        guard let index = indexSet.first else {
-            print("No index inside IndexSet")
-            return
-        }
-        
-        let itemToDelete = shoppingList[index]
-        container.viewContext.delete(itemToDelete)
+    func deleteItem(_ item: ShoppingList) {
+       
+        container.viewContext.delete(item)
         
         do {
             try container.viewContext.save()
@@ -99,8 +95,12 @@ func saveItem(title: String) {
     }
     
     func markAsCompleted(_ item: ShoppingList) {
-        if let index = shoppingList.firstIndex(where: { $0.id == item.id }) {
-            shoppingList[index].isItCompleted = true
+        item.isItCompleted.toggle()
+        do {
+            try container.viewContext.save()
+            fetchItems()
+        } catch let error {
+            print("Error while saving task. \(error.localizedDescription)")
         }
     }
 
@@ -111,7 +111,7 @@ func saveItem(title: String) {
         
         do {
             try container.viewContext.save()
-            shoppingList.append(newItem)
+            fetchItems()
         } catch let error {
             print("Error while saving task. \(error.localizedDescription)")
         }

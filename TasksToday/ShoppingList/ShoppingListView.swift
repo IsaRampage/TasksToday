@@ -33,22 +33,22 @@ struct ShoppingListView: View {
             
             List {
                 Section {
-                    ForEach(shoppingListModel.shoppingList) { item in
+                    ForEach(shoppingListModel.shoppingList) { newItem in
                         HStack {
                             Button(action: {
-                                shoppingListModel.markAsCompleted(item)
+                                shoppingListModel.markAsCompleted(newItem)
                             }) {
-                                Image(systemName: item.isCompleted ? "checkmark.circle.fill" : "circle")
+                                Image(systemName: newItem.isItCompleted ? "checkmark.circle.fill" : "circle")
                             }
                             .buttonStyle(BorderlessButtonStyle())
                             
-                            Text(item.title)
-                                .strikethrough(item.istCompleted)
+                            Text(newItem.title ?? "")
+                                .strikethrough(newItem.isItCompleted)
                             
                             Spacer()
                             
                             Button(action: {
-                                shoppingListModel.deleteItem(item)
+                                shoppingListModel.deleteItem(newItem)
                             }) {
                                 Image(systemName: "trash")
                             }
