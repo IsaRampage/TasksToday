@@ -60,6 +60,7 @@ class ShoppingListModel: ObservableObject {
 
 func saveItem(title: String) {
     let newItem = ShoppingList(context: container.viewContext)
+    newItem.id = UUID()
     newItem.title = title
     newItem.isItCompleted = false
     
@@ -106,6 +107,7 @@ func saveItem(title: String) {
 
     func addItem(_ title: String) {
         let newItem = ShoppingList(context: container.viewContext)
+        newItem.id = UUID()
         newItem.title = title
         newItem.isItCompleted = false
         
