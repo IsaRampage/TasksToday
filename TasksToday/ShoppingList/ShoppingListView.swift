@@ -20,7 +20,6 @@ struct ShoppingListView: View {
                 TextField("Add new item", text: $newItemTitle)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                 Button(action: {
-                 //   let newItem = ShoppingList(title: newItemTitle, isItCompleted: false)
                     shoppingListModel.addItem(newItemTitle)
                     newItemTitle = ""
                 }) {

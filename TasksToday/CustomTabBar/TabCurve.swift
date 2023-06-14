@@ -32,9 +32,9 @@ struct TabCurve: Shape {
             path.move(to: CGPoint(x: mid - 40, y: rect.height))
             let to = CGPoint(x: mid, y: rect.height - 20)
             let control1 = CGPoint(x: mid - 15, y:
-                rect.height)
+                                    rect.height)
             let control2 = CGPoint(x: mid - 15, y:
-                rect.height - 20)
+                                    rect.height - 20)
             
             let to1 = CGPoint(x: mid + 40, y: rect.height)
             let control3 = CGPoint(x: mid + 15, y: rect.height - 20)

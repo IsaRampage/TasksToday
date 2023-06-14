@@ -13,75 +13,57 @@ struct TasksView: View {
     @StateObject private var tasksModel = TasksModel()
     
     var body: some View {
-            VStack {
-                HStack {
-                    TextField("New Task", text: $newTaskTitle)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                    Button(action: {
-                        tasksModel.addTask(newTaskTitle)
-                        newTaskTitle = ""
-                        
-                    }) {
-                        Image(systemName: "plus.circle.fill")
-                    }
-                }
-                .padding(.horizontal, 25)
-                .padding(.bottom)
-                .padding(.top)
-                
-                // Text("\(tasksModel.tasks.count)")
-                if tasksModel.tasks.isEmpty {
-                    Spacer()
+        VStack {
+            HStack {
+                TextField("New Task", text: $newTaskTitle)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                Button(action: {
+                    tasksModel.addTask(newTaskTitle)
+                    newTaskTitle = ""
                     
-                } else {
-                    VStack {
-                        List {
-                            Section {
-                                ForEach(tasksModel.tasks, id: \.id) { task in
-                                    if !task.isCompleted {
-                                        HStack {
-                                            Text(task.title ?? "")
-                                            Spacer()
-                                            Button(action: {
-                                                tasksModel.updateTask(task: task)
-                                            }) {
-                                                Image(systemName: "checkmark")
-                                            }
+                }) {
+                    Image(systemName: "plus.circle.fill")
+                }
+            }
+            .padding(.horizontal, 25)
+            .padding(.bottom)
+            .padding(.top)
+            
+            // Text("\(tasksModel.tasks.count)")
+            if tasksModel.tasks.isEmpty {
+                Spacer()
+                
+            } else {
+                VStack {
+                    List {
+                        Section {
+                            ForEach(tasksModel.tasks, id: \.id) { task in
+                                if !task.isCompleted {
+                                    HStack {
+                                        Text(task.title ?? "")
+                                        Spacer()
+                                        Button(action: {
+                                            tasksModel.updateTask(task: task)
+                                        }) {
+                                            Image(systemName: task.isCompleted ? "checkmark.circle.fill" : "circle")
                                         }
                                     }
                                 }
-                                .onDelete { indexSet in
-                                    tasksModel.deleteTask(indexSet: indexSet)
-                                }
                             }
-                            .listRowBackground(TasksListRowBackground())
-                            
+                            .onDelete { indexSet in
+                                tasksModel.deleteTask(indexSet: indexSet)
+                            }
                         }
-                        .frame(width: 350)
-                        .listStyle(PlainListStyle())
+                        .listRowBackground(TasksListRowBackground())
+                        
                     }
-                    .padding(.bottom, -25)
-
+                    .frame(width: 350)
+                    .listStyle(PlainListStyle())
                 }
-                
-                
-//                HStack {
-//                    TextField("New Task", text: $newTaskTitle)
-//                        .textFieldStyle(RoundedBorderTextFieldStyle())
-//                    Button(action: {
-//                        tasksModel.addTask(newTaskTitle)
-//                        newTaskTitle = ""
-//                        
-//                    }) {
-//                        Image(systemName: "plus.circle.fill")
-//                    }
-//                }
-//                .padding(.horizontal, 25)
-//                .padding(.bottom, -20)
+                .padding(.bottom, -25)
                 
             }
-           
-        
+        }
     }
 }
 

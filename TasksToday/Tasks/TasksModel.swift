@@ -100,13 +100,13 @@ class TasksModel: ObservableObject {
     
     func deleteAllTasks() {
         for task in tasks {
-          container.viewContext.delete(task)
+            container.viewContext.delete(task)
         }
         do {
-          try container.viewContext.save()
-          fetchTasks()
+            try container.viewContext.save()
+            fetchTasks()
         } catch {
-          print("Error while deleting a task \(error)")
+            print("Error while deleting a task \(error)")
         }
-      }
+    }
 }

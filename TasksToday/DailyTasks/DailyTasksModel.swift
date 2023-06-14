@@ -12,7 +12,7 @@ class DailyTasksModel: ObservableObject {
     let container: NSPersistentContainer
     
     @Published var dailyTasks: [DailyTasks] = []
-
+    
     init() {
         container = NSPersistentContainer(name: "TasksDataModel")
         
@@ -29,31 +29,35 @@ class DailyTasksModel: ObservableObject {
         let request = NSFetchRequest<DailyTasks>(entityName: "DailyTasks")
         
         do {
-           dailyTasks = try container.viewContext.fetch(request)
+            dailyTasks = try container.viewContext.fetch(request)
+            DispatchQueue.main.async { [weak self] in
+                self?.objectWillChange.send()
+            }
         } catch {
             print("error fetching: \(error)")
         }
     }
     
     //init() {
-      //  resetCompletedTasksIfNeeded()
-   // }
-
-func saveTask(title: String) {
-    let newTask = Tasks(context: container.viewContext)
-    newTask.title = title
-    newTask.isCompleted = false
+    //  resetCompletedTasksIfNeeded()
+    // }
     
-    do {
-        try container.viewContext.save()
-        fetchTasks()
-    } catch {
-        print("Error while saving a new task \(error)")
+    func saveTask(title: String) {
+        let newTask = Tasks(context: container.viewContext)
+        newTask.title = title
+        newTask.isCompleted = false
+        
+        do {
+            try container.viewContext.save()
+            fetchTasks()
+        } catch {
+            print("Error while saving a new task \(error)")
+        }
     }
-}
     
     func updateTask(task: DailyTasks) {
         task.isCompleted.toggle()
+        task.lastCompletedDate = task.isCompleted ? Date() : nil
         
         do {
             try container.viewContext.save()
@@ -62,7 +66,6 @@ func saveTask(title: String) {
             print("Error while updating a task \(error)")
         }
     }
-    
     func deleteTask(indexSet: IndexSet) {
         guard let index = indexSet.first else {
             print("No index inside IndexSet")
@@ -85,7 +88,7 @@ func saveTask(title: String) {
             dailyTasks[index].isCompleted = true
         }
     }
-
+    
     func addTask(_ title: String) {
         let newTask = DailyTasks(context: container.viewContext)
         newTask.title = title
@@ -98,16 +101,18 @@ func saveTask(title: String) {
             print("Error while saving task. \(error.localizedDescription)")
         }
     }
-
-    private func resetCompletedTasksIfNeeded() {
+    
+    func resetCompletedTasksIfNeeded() {
         let calendar = Calendar.current
         let today = calendar.startOfDay(for: Date())
-
+        
         for i in 0..<dailyTasks.count {
             if let lastCompletedDate = dailyTasks[i].lastCompletedDate {
                 let lastCompletedDay = calendar.startOfDay(for: lastCompletedDate)
                 if lastCompletedDay < today {
+                    dailyTasks[i].isCompleted = false
                     dailyTasks[i].shouldDisplay = false
+                    dailyTasks[i].lastCompletedDate = nil
                 }
             }
         }

@@ -23,6 +23,8 @@
 		9FBCF8742A26220E008AB538 /* WeatherStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FBCF8732A26220D008AB538 /* WeatherStruct.swift */; };
 		9FBCF8762A26232C008AB538 /* WeatherApiViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FBCF8752A26232C008AB538 /* WeatherApiViewModel.swift */; };
 		9FBCF8782A2624CD008AB538 /* WeatherApiView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FBCF8772A2624CD008AB538 /* WeatherApiView.swift */; };
+		9FDB0B132A30800D0032207F /* TicTacToeGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FDB0B122A30800D0032207F /* TicTacToeGame.swift */; };
+		9FDB0B152A3080500032207F /* TicTacToeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FDB0B142A3080500032207F /* TicTacToeView.swift */; };
 		9FEA71412A013EF200455E6D /* TasksTodayApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FEA71402A013EF200455E6D /* TasksTodayApp.swift */; };
 		9FEA71432A013EF200455E6D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FEA71422A013EF200455E6D /* ContentView.swift */; };
 		9FEA71452A013EF200455E6D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9FEA71442A013EF200455E6D /* Assets.xcassets */; };
@@ -50,6 +52,8 @@
 		9FBCF8732A26220D008AB538 /* WeatherStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherStruct.swift; sourceTree = "<group>"; };
 		9FBCF8752A26232C008AB538 /* WeatherApiViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherApiViewModel.swift; sourceTree = "<group>"; };
 		9FBCF8772A2624CD008AB538 /* WeatherApiView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherApiView.swift; sourceTree = "<group>"; };
+		9FDB0B122A30800D0032207F /* TicTacToeGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicTacToeGame.swift; sourceTree = "<group>"; };
+		9FDB0B142A3080500032207F /* TicTacToeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicTacToeView.swift; sourceTree = "<group>"; };
 		9FEA713D2A013EF200455E6D /* TasksToday.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TasksToday.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9FEA71402A013EF200455E6D /* TasksTodayApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksTodayApp.swift; sourceTree = "<group>"; };
 		9FEA71422A013EF200455E6D /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -131,6 +135,15 @@
 			path = WeatherAPI;
 			sourceTree = "<group>";
 		};
+		9FDB0B162A3089240032207F /* TicTacToe */ = {
+			isa = PBXGroup;
+			children = (
+				9FDB0B122A30800D0032207F /* TicTacToeGame.swift */,
+				9FDB0B142A3080500032207F /* TicTacToeView.swift */,
+			);
+			path = TicTacToe;
+			sourceTree = "<group>";
+		};
 		9FEA71342A013EF200455E6D = {
 			isa = PBXGroup;
 			children = (
@@ -150,6 +163,7 @@
 		9FEA713F2A013EF200455E6D /* TasksToday */ = {
 			isa = PBXGroup;
 			children = (
+				9FDB0B162A3089240032207F /* TicTacToe */,
 				9FBCF8792A262EE6008AB538 /* WeatherAPI */,
 				9F5DAF022A13707000D18C23 /* LoginSignUp */,
 				9F4BCBFA2A0BBA71003BA043 /* CustomListBackground */,
@@ -307,10 +321,12 @@
 				9FEA71632A01450B00455E6D /* ShoppingListView.swift in Sources */,
 				9FEA71572A01442A00455E6D /* TasksModel.swift in Sources */,
 				9FBCF8742A26220E008AB538 /* WeatherStruct.swift in Sources */,
+				9FDB0B152A3080500032207F /* TicTacToeView.swift in Sources */,
 				9FEA71682A0145C400455E6D /* CustomTabBar.swift in Sources */,
 				9F4BCBF92A0A6E5F003BA043 /* RoundedShapeHead.swift in Sources */,
 				9F4BCBFC2A0BBAA6003BA043 /* TasksListRowBackground.swift in Sources */,
 				9FEA716A2A0145D600455E6D /* TabCurve.swift in Sources */,
+				9FDB0B132A30800D0032207F /* TicTacToeGame.swift in Sources */,
 				9F9816C62A05458100B1408B /* SplashScreenView.swift in Sources */,
 				9FBCF8762A26232C008AB538 /* WeatherApiViewModel.swift in Sources */,
 				9F5DAF112A13752100D18C23 /* RegisterView.swift in Sources */,

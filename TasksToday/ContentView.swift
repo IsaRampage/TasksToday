@@ -12,12 +12,12 @@ struct ContentView: View {
     @EnvironmentObject var fireBaseVM: FireBaseViewModel
     @State var selectedTab: String = "list.bullet"
     @State var screenTitle: String = ""
-   
+    
     
     var body: some View {
         
         if fireBaseVM.loggedIn {
-        ZStack {
+            ZStack {
                 
                 VStack(spacing: 0) {
                     ZStack {
@@ -67,8 +67,6 @@ struct ContentView: View {
                     // Custom Tab Bar...
                     CustomTabBar(selectedTab: $selectedTab)
                 }
-                
-                //  .background(Color.black.opacity(0.07).ignoresSafeArea())
                 .background(Color.white.opacity(0.07).ignoresSafeArea())
             } 
         }  else {

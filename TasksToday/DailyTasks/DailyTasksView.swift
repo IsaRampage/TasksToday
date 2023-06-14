@@ -13,47 +13,58 @@ struct DailyTasksView: View {
     var newArray = ["2, 3, 4"]
     
     @State private var newTaskTitle = ""
-
+    
     var body: some View {
-            VStack {
-                HStack {
-                    TextField("New Task", text: $newTaskTitle)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                    Button(action: {
-                        dailyTasksModel.addTask(newTaskTitle)
-                        newTaskTitle = ""
-                    }) {
-                        Image(systemName: "plus.circle.fill")
-                    }
+        VStack {
+            HStack {
+                TextField("New Task", text: $newTaskTitle)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                Button(action: {
+                    dailyTasksModel.addTask(newTaskTitle)
+                    newTaskTitle = ""
+                }) {
+                    Image(systemName: "plus.circle.fill")
                 }
-                .padding(.horizontal, 25)
-                .padding(.bottom)
-                .padding(.top)
-                
-                List {
-                    Section {
-                        ForEach(dailyTasksModel.dailyTasks, id: \.id) { dailyTask in
-                            if !dailyTask.isCompleted {
-                            HStack {
-                                Text(dailyTask.title ?? "")
-                                Spacer()
-                                
-                                Button {dailyTasksModel.updateTask(task: dailyTask)} label: {
-                                    Image(systemName: "checkmark")
-                                }
-                            }
-                            }
-                        }
-                        .onDelete { indexSet in
-                            dailyTasksModel.deleteTask(indexSet: indexSet)
-                        }
-                    }
-                    .listRowBackground(TasksListRowBackground())
-                }
-                .frame(width: 350)
-                .listStyle(PlainListStyle())
             }
-            .padding(.bottom, -25)
+            .padding(.horizontal, 25)
+            .padding(.bottom)
+            .padding(.top)
+            
+            List {
+                Section {
+                    ForEach(dailyTasksModel.dailyTasks, id: \.id) { dailyTask in
+                        
+                        HStack {
+                            if dailyTask.isCompleted {
+                                Text(dailyTask.title ?? "")
+                                    .foregroundColor(.gray)
+                                    .strikethrough()
+                            } else {
+                                Text(dailyTask.title ?? "")
+                            }
+                            Spacer()
+                            
+                            Button {
+                                dailyTasksModel.updateTask(task: dailyTask)
+                            } label: {
+                                Image(systemName: dailyTask.isCompleted ? "checkmark.circle.fill" : "circle")
+                            }
+                        }
+                        
+                    }
+                    .onDelete { indexSet in
+                        dailyTasksModel.deleteTask(indexSet: indexSet)
+                    }
+                }
+                .listRowBackground(TasksListRowBackground())
+            }
+            .frame(width: 350)
+            .listStyle(PlainListStyle())
+        }
+        .padding(.bottom, -25)
+        .onAppear {
+            dailyTasksModel.resetCompletedTasksIfNeeded()
+        }
     }
 }
 

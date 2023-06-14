@@ -38,7 +38,7 @@ struct LoginView: View {
                     // Button mit Auge-Icon zum Anzeigen des Passworts
                     Button(action: { showPassword.toggle() }) {
                         Text("view password")
-                        .foregroundColor(.gray)
+                            .foregroundColor(.gray)
                         Image(systemName: showPassword ? "eye.slash.fill" : "eye.fill")
                             .foregroundColor(.gray)
                             .padding(.trailing, 10)
@@ -79,7 +79,7 @@ struct LoginView: View {
     }
 }
 struct LoginView_Previews: PreviewProvider {
-  static var previews: some View {
-    LoginView()
-  }
+    static var previews: some View {
+        LoginView()
+    }
 }

@@ -35,11 +35,11 @@ struct CustomTabBar: View {
             .clipShape(TabCurve(tabPoint: getCurvePoint() - 15))
         )
         .overlay(
-        Circle()
-            .fill(Color.blue)
-            .frame(width: 10, height: 10)
-            .offset(x: getCurvePoint() - 195)
-        
+            Circle()
+                .fill(Color.blue)
+                .frame(width: 10, height: 10)
+                .offset(x: getCurvePoint() - 195)
+            
             ,alignment: .bottom
         )
         .cornerRadius(30)
@@ -67,12 +67,12 @@ struct CustomTabBar: View {
         }
     }
 }
-    
-    struct CustomTabBar_Previews: PreviewProvider {
-        static var previews: some View {
-            ContentView()
-        }
+
+struct CustomTabBar_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentView()
     }
+}
 
 struct TabBarButton: View {
     
@@ -99,25 +99,25 @@ struct TabBarButton: View {
             return AnyView(
                 
                 Button(action: {
-                // changing tab...
-                // spring animation...
+                    // changing tab...
+                    // spring animation...
                     withAnimation(.interactiveSpring(response: 0.6, dampingFraction: 0.5, blendDuration: 0.5)) {
-                    selectedTab = image
-                }
-            }, label: {
-                
-                // filling the color if it ´ selected...
-                // Image(systemName: "\(image)\(selectedTab == image ? ".fill": "")")
-                
-                Image(systemName: image)
-                    .font(.system(size: 25, weight: .semibold))
-                    .foregroundColor(Color(.white))
-                // Lifting View
-                // if its selected
-                    .offset(y: selectedTab == image ? -10 : 0)
-            })
-            // Max Frame...
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        selectedTab = image
+                    }
+                }, label: {
+                    
+                    // filling the color if it ´ selected...
+                    // Image(systemName: "\(image)\(selectedTab == image ? ".fill": "")")
+                    
+                    Image(systemName: image)
+                        .font(.system(size: 25, weight: .semibold))
+                        .foregroundColor(Color(.white))
+                    // Lifting View
+                    // if its selected
+                        .offset(y: selectedTab == image ? -10 : 0)
+                })
+                // Max Frame...
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
             )
         }
         // Max Height...

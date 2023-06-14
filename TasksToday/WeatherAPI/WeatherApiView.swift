@@ -10,7 +10,7 @@ import SwiftUI
 struct WeatherView: View {
     @ObservedObject var viewModel = WeatherApiViewModel()
     @State private var city = ""
-
+    
     var body: some View {
         VStack(spacing: 20) {
             TextField("City", text: $city)
