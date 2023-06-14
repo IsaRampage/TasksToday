@@ -53,10 +53,10 @@ struct TicTacToeView: View {
             }) {
                 Text("Restart")
                     .font(.headline)
-                    .foregroundColor(.white)
+                    .foregroundColor(.black)
                     .padding()
                     .frame(maxWidth: .infinity)
-                    .background(Color.blue)
+                    .background(Color.yellow)
                     .cornerRadius(10)
                     .padding(.horizontal, 30)
             }

@@ -9,61 +9,76 @@ import SwiftUI
 import CoreData
 
 struct DailyTasksView: View {
+    @State var width = UIScreen.main.bounds.width
     @StateObject private var dailyTasksModel = DailyTasksModel()
     var newArray = ["2, 3, 4"]
     
     @State private var newTaskTitle = ""
     
     var body: some View {
-        VStack {
-            HStack {
-                TextField("New Task", text: $newTaskTitle)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                Button(action: {
-                    dailyTasksModel.addTask(newTaskTitle)
-                    newTaskTitle = ""
-                }) {
-                    Image(systemName: "plus.circle.fill")
+        NavigationStack {
+            VStack {
+                ZStack {
+                    Circle()
+                        .fill(Color.yellow)
+                        .frame(width: self.width + 200, height: self.width + 200)
+                        .overlay(
+                            Circle()
+                                .stroke(Color.white, lineWidth: 2)
+                        )
                 }
-            }
-            .padding(.horizontal, 25)
-            .padding(.bottom)
-            .padding(.top)
-            
-            List {
-                Section {
-                    ForEach(dailyTasksModel.dailyTasks, id: \.id) { dailyTask in
-                        
-                        HStack {
-                            if dailyTask.isCompleted {
-                                Text(dailyTask.title ?? "")
-                                    .foregroundColor(.gray)
-                                    .strikethrough()
-                            } else {
-                                Text(dailyTask.title ?? "")
-                            }
-                            Spacer()
+                .padding(.top, -500)
+                HStack {
+                    TextField("New Task", text: $newTaskTitle)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                    Button(action: {
+                        dailyTasksModel.addTask(newTaskTitle)
+                        newTaskTitle = ""
+                    }) {
+                        Image(systemName: "plus.circle.fill")
+                            .foregroundColor(.black)
+                    }
+                }
+                .padding(.horizontal, 25)
+                .padding(.bottom)
+                .padding(.top)
+                
+                List {
+                    Section {
+                        ForEach(dailyTasksModel.dailyTasks, id: \.id) { dailyTask in
                             
-                            Button {
-                                dailyTasksModel.updateTask(task: dailyTask)
-                            } label: {
-                                Image(systemName: dailyTask.isCompleted ? "checkmark.circle.fill" : "circle")
+                            HStack {
+                                if dailyTask.isCompleted {
+                                    Text(dailyTask.title ?? "")
+                                        .foregroundColor(.gray)
+                                        .strikethrough()
+                                } else {
+                                    Text(dailyTask.title ?? "")
+                                }
+                                Spacer()
+                                
+                                Button {
+                                    dailyTasksModel.updateTask(task: dailyTask)
+                                } label: {
+                                    Image(systemName: dailyTask.isCompleted ? "checkmark.circle.fill" : "circle")
+                                }
                             }
+                            
                         }
-                        
+                        .onDelete { indexSet in
+                            dailyTasksModel.deleteTask(indexSet: indexSet)
+                        }
                     }
-                    .onDelete { indexSet in
-                        dailyTasksModel.deleteTask(indexSet: indexSet)
-                    }
+                    .listRowBackground(TasksListRowBackground())
                 }
-                .listRowBackground(TasksListRowBackground())
+                .frame(width: 350)
+                .listStyle(PlainListStyle())
             }
-            .frame(width: 350)
-            .listStyle(PlainListStyle())
-        }
-        .padding(.bottom, -25)
-        .onAppear {
-            dailyTasksModel.resetCompletedTasksIfNeeded()
+            .padding(.bottom, -25)
+            .onAppear {
+                dailyTasksModel.resetCompletedTasksIfNeeded()
+            }
+            .navigationTitle("Daily Tasks")
         }
     }
 }

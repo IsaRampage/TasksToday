@@ -10,11 +10,22 @@ import SwiftUI
 struct LoginView: View {
     @EnvironmentObject var firebaseViewModel: FireBaseViewModel
     @State private var showPassword = false
+    @State var width = UIScreen.main.bounds.width
     
     var body: some View {
         NavigationStack {
-            VStack(spacing: 20) {
-                VStack(spacing: 10) {
+            ZStack {
+                Circle()
+                    .fill(Color.yellow)
+                    .frame(width: self.width + 200, height: self.width + 200)
+                    .overlay(
+                        Circle()
+                            .stroke(Color.white, lineWidth: 2)
+                    )
+            }
+            .padding(.top, -690)
+            VStack {
+                VStack {
                     TextField("Email", text: $firebaseViewModel.email)
                         .padding()
                         .background(Color.white)
@@ -51,11 +62,11 @@ struct LoginView: View {
                 }) {
                     Text("Login")
                         .font(.headline)
-                        .foregroundColor(.white)
+                        .foregroundColor(.black)
                         .padding()
                         .frame(height: 40)
                         .frame(maxWidth: 150)
-                        .background(Color.blue)
+                        .background(Color.yellow)
                         .cornerRadius(10)
                         .shadow(radius: 5)
                 }
@@ -63,11 +74,11 @@ struct LoginView: View {
                 NavigationLink(destination: RegisterView()) {
                     Text("Sign Up")
                         .font(.headline)
-                        .foregroundColor(.white)
+                        .foregroundColor(.black)
                         .padding()
                         .frame(height: 40)
                         .frame(maxWidth: 150)
-                        .background(Color.blue)
+                        .background(Color.yellow)
                         .cornerRadius(10)
                         .shadow(radius: 5)
                 }
@@ -81,5 +92,6 @@ struct LoginView: View {
 struct LoginView_Previews: PreviewProvider {
     static var previews: some View {
         LoginView()
+            .environmentObject(FireBaseViewModel())
     }
 }

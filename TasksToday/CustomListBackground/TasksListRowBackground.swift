@@ -13,7 +13,7 @@ struct TasksListRowBackground: View {
             RoundedRectangle(cornerRadius: 10)
                 .stroke(Color.gray, lineWidth: 1)
                 .frame(width: 350, height: geometry.size.height)
-                .background(Color(.sRGB, red: 0.0, green: 0.5, blue: 1.0, opacity: 0.3))
+                .background(Color(.sRGB, red: 1.0, green: 1.0, blue: 0.5, opacity: 0.3))
                 .cornerRadius(10)
         }
     }
