@@ -14,6 +14,8 @@ struct TicTacToeView: View {
     
     var body: some View {
         VStack(spacing: 10) {
+            Spacer()
+            
             Text(game.winnerText)
                 .font(.headline)
                 .padding(.bottom, 10)
@@ -33,7 +35,7 @@ struct TicTacToeView: View {
                                 Text(game.board[row][column])
                                     .font(.largeTitle)
                                     .frame(width: 80, height: 80)
-                                    .foregroundColor(.black)
+                                    .foregroundColor(game.board[row][column] == "X" ? Color.yellow : Color.black)
                                     .background(Color.white)
                                     .cornerRadius(10)
                                     .overlay(

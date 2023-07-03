@@ -9,14 +9,13 @@ import SwiftUI
 
 struct SplashScreenView: View {
     @State private var showMainView = false
+    @State private var circleScale: CGFloat = 0.2
     
     var body: some View {
         ZStack {
-            LinearGradient(gradient: Gradient(colors: [Color.white, Color.blue]), startPoint: .bottom, endPoint: .top)
-                .edgesIgnoringSafeArea(.all)
+            Color.white // Weißer Hintergrund
             
             VStack {
-                // Bild oder Animation des Splash Screens
                 Image(systemName: "checkmark")
                     .resizable()
                     .aspectRatio(contentMode: .fit)
@@ -28,7 +27,6 @@ struct SplashScreenView: View {
                         }
                     }
                 
-                // Text unter dem Bild
                 Text("Tasks Today")
                     .font(.largeTitle)
                     .fontWeight(.bold)
@@ -36,6 +34,20 @@ struct SplashScreenView: View {
                     .opacity(showMainView ? 0 : 1)
                     .offset(y: showMainView ? -50 : 50)
                     .animation(Animation.easeOut(duration: 1.5).delay(1.0))
+                
+                Circle() // Gelber Kreis
+                    .fill(Color.yellow)
+                    .frame(width: circleScale * 500, height: circleScale * 500)
+                    .overlay(
+                        Circle()
+                            .stroke(Color.white, lineWidth: 2)
+                    )
+                    .padding(.top, circleScale * -835) // Ursprünglicher Y-Offset der LoginView
+                    .scaleEffect(circleScale)
+                    .animation(.spring())
+                    .onAppear {
+                        circleScale = 1.0 // Größere Größe für den Kreis
+                    }
             }
         }
     }
